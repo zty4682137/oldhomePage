@@ -89,12 +89,15 @@
 <!--<script src="dc.js"></script>-->
 <script src="js/frontpage.js"></script>
 <script>
-    $(".site-header").height($(window).innerHeight());
+    var W=$(window).width(),H=$(window).height();
+    $(".site-header").height(H);
     $(".leftCtn").click(function(){
         window.location.href='#';
     });
     $(".rightCtn").click(function(){
         window.location.href='http://zhangtianyang.cn/ZtyIntro/.';
     });
+    $(".container").height(H).width(W);
+
 </script>
 </html>

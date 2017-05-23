@@ -17,7 +17,6 @@
         }
         /*大屏时样式*/
         @media screen and (min-width: 800px){
-
             .container{
                 position: absolute;
                 left: 0;
@@ -78,8 +77,34 @@
                 position: absolute;
                 left: 0;
                 top: 0;
-                transition: background .8s;
-                z-index: -10;
+                /*transition: background .8s;*/
+                z-index: 3000;
+                display: none;
+            }
+            .load{
+                height: 100%;
+                width: 100%;
+                position: absolute;
+                left: 0;
+                top: 0;
+                background: #ededed;
+                /*transition: background .8s;*/
+                z-index: 4000;
+                overflow: hidden;
+                box-sizing: border-box;
+            }
+            .loadImg{
+                width: 15rem;
+                height: 15rem;
+                background: url("img/loading.png") no-repeat center top;
+                background-size: cover;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                animation: loading-Img 2s infinite;
             }
             .alert{
                 display: none;
@@ -94,6 +119,9 @@
                 display: none;
             }
             .model{
+                display: none;
+            }
+            .load{
                 display: none;
             }
             .alert{
@@ -115,17 +143,26 @@
                 margin-top: 3rem;
             }
         }
-        /*@keyframes fadeOut {*/
-            /*100%{background: #000}*/
-        /*}*/
+        @keyframes fadeIn {
+            100%{background: #000}
+        }
+        @keyframes fadeOut {
+            100%{opacity: 0}
+        }
+        @keyframes loading-Img {
+            100%{transform: rotate(360deg)}
+        }
 
 
     </style>
 </head>
 <body>
+<!--PC页面-->
+<div class="load">
+    <div class="loadImg"></div>
+</div>
 <div class="site-header"></div>
 <div class="container">
-    <!--<div class="bg"></div>-->
     <div class="leftCtn fl">
         <h1>欢迎来到 小羊的主页</h1>
         <br/>
@@ -135,6 +172,9 @@
     </div>
 </div>
 <div class="model"></div>
+
+
+<!--手机页面-->
 <div class="alert">
     <img class="alertImg" src="img/yang.png" alt=""/>
     <h4 class="alertText">暂不支持小屏显示</h4>
@@ -142,19 +182,44 @@
 </div>
 </body>
 <script src="js/jquery-3.1.1.min.js"></script>
-<!--<script src="dc.js"></script>-->
 <script src="js/frontpage.js"></script>
+
+<!--方法-->
 <script>
+    //获取宽高并赋值
     var W=$(window).width(),H=$(window).height();
     $(".site-header").height(H);
+    $(".container").height(H).width(W);
+    //页面淡出效果方法
+    function animationOut(animationName,time,ifforwards){
+        $(".model").css("display","block").css("animation",animationName+" "+time+"s "+(ifforwards?"forwards":""));
+    }
+    //页面读取动画
+    function loadEnd(time){
+        $(".load").css("animation","fadeOut "+time+"s");
+        var timeOver=setTimeout(function(){
+            $(".load").css("display","none").remove();
+        },time*1000)
+    }
+</script>
+
+<!--事件绑定-->
+<script>
+    //点击事件
     $(".leftCtn").click(function(){
-        window.location.href='#';
+        animation("fadeIn","0.8",true);
+        var time=setTimeout(function(){
+            window.location.href='#';
+        },800)
     });
     $(".rightCtn").click(function(){
-//        $(".model").css("z-index","1000").css("background","#000");
-        window.location.href='http://zhangtianyang.cn/ZtyIntro/.';
+        animation("fadeIn","0.8",true);
+        var time=setTimeout(function(){
+            window.location.href='http://zhangtianyang.cn/ZtyIntro/.';
+        },800)
     });
-    $(".container").height(H).width(W);
-
+    //页面读取完毕事件
+    $(window).ready(loadEnd(0.5));
 </script>
+
 </html>

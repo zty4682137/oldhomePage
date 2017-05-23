@@ -199,7 +199,9 @@
         $(".load").css("animation","fadeOut "+time+"s");
         var timeOver=setTimeout(function(){
             $(".load").css("display","none").remove();
+            clearTimeout(timeOver);
         },time*1000)
+
     }
 </script>
 
@@ -207,15 +209,17 @@
 <script>
     //点击事件
     $(".leftCtn").click(function(){
-        animation("fadeIn","0.8",true);
+        animationOut("fadeIn","0.8",true);
         var time=setTimeout(function(){
             window.location.href='#';
+            clearTimeout(time);
         },800)
     });
     $(".rightCtn").click(function(){
-        animation("fadeIn","0.8",true);
+        animationOut("fadeIn","0.8",true);
         var time=setTimeout(function(){
             window.location.href='http://zhangtianyang.cn/ZtyIntro/.';
+            clearTimeout(time);
         },800)
     });
     //页面读取完毕事件

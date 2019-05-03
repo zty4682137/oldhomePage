@@ -42,8 +42,26 @@
                 cursor: pointer;
                 transition: all 1s;
             }
+            .leftTips{
+                position: absolute;
+                font-size: 1.2rem;
+                color: #444;
+                width: 8rem;
+                height: 2rem;
+                left: 10rem;
+                bottom: 10rem;
+                opacity: 0;
+                transition: .5s;
+            }
+            .leftTips span{
+                display: inline-block;
+                animation: leftArrow 1.8s infinite;
+            }
             .leftCtn:hover{
                 box-shadow:rgba(0,0,0,.3) 0 -13rem 10rem -7rem inset;
+            }
+            .leftCtn:hover .leftTips{
+                opacity: 1;
             }
             .rightCtn{
                 width: 40%;
@@ -54,8 +72,26 @@
                 transition: all 1s;
                 /*border-left: #e0e0e0 1px solid;*/
             }
+            .rightTips{
+                font-size: 1.2rem;
+                color: #444;
+                position: absolute;
+                width: 12rem;
+                height: 2rem;
+                right: 10rem;
+                bottom: 10rem;
+                opacity: 0;
+                transition: .5s;
+            }
+            .rightTips span{
+                display: inline-block;
+                animation: rightArrow 1.8s infinite;
+            }
             .rightCtn:hover{
                 box-shadow:rgba(0,0,0,.3) 0 -13rem 10rem -7rem inset;
+            }
+            .rightCtn:hover .rightTips{
+                opacity: 1;
             }
             h1{
                 font-size: 3rem;
@@ -95,8 +131,8 @@
                 box-sizing: border-box;
             }
             .loadImg{
-                width: 15rem;
-                height: 15rem;
+                width: 10rem;
+                height: 10rem;
                 background: url("img/loading.png") no-repeat center top;
                 background-size: cover;
                 position: absolute;
@@ -153,6 +189,16 @@
         @keyframes loading-Img {
             100%{transform: rotate(360deg)}
         }
+        @keyframes leftArrow {
+            0%{transform: translate(0,0);opacity: 0;}
+            30%{transform: translate(-20px,0);opacity: 1;}
+            100%{transform: translate(-30px,0);opacity: 0;}
+        }
+        @keyframes rightArrow {
+            0%{transform: translate(0,0);opacity: 0;}
+            30%{transform: translate(20px,0);opacity: 1;}
+            100%{transform: translate(30px,0);opacity: 0;}
+        }
 
 
     </style>
@@ -165,11 +211,13 @@
 <div class="site-header"></div>
 <div class="container">
     <div class="leftCtn fl">
-        <h1>欢迎来到 小羊的主页</h1>
+        <h1>张天阳的主页</h1>
         <br/>
-        <h4>技术博客请左转 个人简介和小作品请右转</h4>
+        <h4>天行健 君子以自强不息 地势坤 君子以厚德载物</h4>
+        <div class="leftTips"><span>←</span>技术博客</div>
     </div>
     <div class="rightCtn fl top">
+        <div class="rightTips">个人主页及作品<span>→</span></div>
     </div>
 </div>
 <div class="model"></div>
@@ -208,6 +256,9 @@
 
 <!--事件绑定-->
 <script>
+    $(window).on("resize",function(){
+        location.reload()
+    })
     //点击事件
     $(".leftCtn").click(function(){
         animationOut("fadeIn","0.8",true);
